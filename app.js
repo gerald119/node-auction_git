@@ -33,6 +33,8 @@ sequelize.sync({ force: false })
     console.error(err);
   });
 
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+
 const sessionMiddleware = session({
   resave: false,
   saveUninitialized: false,
@@ -41,6 +43,9 @@ const sessionMiddleware = session({
     httpOnly: true,
     secure: false,
   },
+  store: new SequelizeStore({  //db 에 세션정보 저장 
+    db: sequelize,
+  }),
 });
 console.log("session 등록완료");
 
