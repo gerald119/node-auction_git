@@ -84,7 +84,7 @@ exports.renderAuction = async (req, res, next) => {
       console.log(good.OwnerId); 
       console.log(req.params.id)
       console.log(req.user.id)  // 세션에 등록된 현재 사용자 
-     if (req.params.id == req.user.id){
+     if (good.OwnerId == req.user.id){
       console.log(" 자신의 상품은 입찰 할 수 없습니다.");
       res.redirect('/');
      } else {
@@ -105,8 +105,8 @@ exports.bid = async (req, res, next) => {
     const { bid, msg } = req.body;
     console.log(req.params.id, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     console.log(req.user.id, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-    console.log(req.params.OwnerId , "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-
+    //console.log(req.params.OwnerId , "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+    //console.log(good.OwnerId, "######################################"); 
     const good = await Good.findOne({
       where: { id: req.params.id },
       include: { model: Auction },
