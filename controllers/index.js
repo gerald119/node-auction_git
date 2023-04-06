@@ -68,21 +68,22 @@ exports.createGood = async (req, res, next) => {
 exports.renderAuction = async (req, res, next) => {
   try {
     const [good, auction] = await Promise.all([
-      Good.findOne({
+      Good.findOne({     // 경매 상품 
         where: { id: req.params.id },
         include: {
           model: User,
           as: 'Owner',
         },
       }),
-      Auction.findAll({
+      Auction.findAll({   // 입찰한 내역 불러오기 
         where: { GoodId: req.params.id },
         include: { model: User },
         order: [['bid', 'ASC']],
       }),
     ]);
+      console.log(good.OwnerId); 
       console.log(req.params.id)
-      console.log(req.user.id)
+      console.log(req.user.id)  // 세션에 등록된 현재 사용자 
      if (req.params.id == req.user.id){
       console.log(" 자신의 상품은 입찰 할 수 없습니다.");
       res.redirect('/');
@@ -102,6 +103,10 @@ exports.renderAuction = async (req, res, next) => {
 exports.bid = async (req, res, next) => {
   try {
     const { bid, msg } = req.body;
+    console.log(req.params.id, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    console.log(req.user.id, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+    console.log(req.params.OwnerId , "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+
     const good = await Good.findOne({
       where: { id: req.params.id },
       include: { model: Auction },
