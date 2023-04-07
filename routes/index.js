@@ -6,7 +6,7 @@ const fs = require('fs');
 
 const { isLoggedIn, isNotLoggedIn } = require('../middlewares');
 const {
-  renderMain, renderJoin, renderGood, createGood, renderAuction, bid, renderList,
+  renderMain, renderJoin, renderGood, createGood, renderAuction, bid, renderList, renderProRe
 } = require('../controllers');
 
 const router = express.Router();
@@ -19,6 +19,7 @@ router.use((req, res, next) => {
 router.get('/', renderMain);
 
 router.get('/join', isNotLoggedIn, renderJoin);
+
 
 router.get('/good', isLoggedIn, renderGood);
 
@@ -47,5 +48,7 @@ router.get('/good/:id', isLoggedIn, renderAuction);
 router.post('/good/:id/bid', isLoggedIn, bid);
 
 router.get('/list', isLoggedIn, renderList);
+
+router.get('/ProRe', isLoggedIn, renderProRe);
 
 module.exports = router;

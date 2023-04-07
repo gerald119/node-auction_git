@@ -25,6 +25,7 @@ exports.renderJoin = (req, res) => {
   });
 };
 
+
 exports.renderGood = (req, res) => {
   res.render('good', { title: '상품 등록 - NodeAuction' });
 };
@@ -146,6 +147,20 @@ exports.renderList = async (req, res, next) => {
       order: [[{ model: Auction }, 'bid', 'DESC']],
     });
     res.render('list', { title: '낙찰 목록 - NodeAuction', goods });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
+exports.renderProRe = async (req, res, next) => {
+  try {
+    const goods = await Good.findAll({
+      where: { SoldId: req.user.id },
+      include: { model: Auction },
+      order: [[{ model: Auction }, 'bid', 'DESC']],
+    });
+    res.render('ProRe', { title: '낙찰 목록 - NodeAuction', goods });
   } catch (error) {
     console.error(error);
     next(error);
