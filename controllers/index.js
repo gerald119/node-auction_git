@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { Good, Auction, User, sequelize } = require('../models');
+const { Good, Auction, User, sequelize, AuctionTypes } = require('../models');
 const schedule = require('node-schedule');
 
 exports.renderMain = async (req, res, next) => {
@@ -102,9 +102,9 @@ exports.bid = async (req, res, next) => {
       order: [[{ model: Auction }, 'bid', 'DESC']],
     });
     // 삭제 예정 
-    console.log(req.params.id, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    console.log(req.user.id, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-    console.log(good.OwnerId, "######################################"); 
+    // console.log(req.params.id, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    // console.log(req.user.id, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+    // console.log(good.OwnerId, "######################################"); 
     if (req.user.id == good.OwnerId ){
       return res.status(404).send('본인의 상품을 입찰할 수 없습니다.');
     }
@@ -153,19 +153,28 @@ exports.renderList = async (req, res, next) => {
   }
 };
 
-exports.renderProRe = async (req, res, next) => {
+exports.renderProRe = (req, res, next) => {
   try {
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1); // 어제 시간
-    const goods = await Good.findAll({ 
-      where: { SoldId: null, createdAt: { [Op.gte]: yesterday } },
-    });
     res.render('ProRe', {
-      title: 'NodeAuction',
-      goods,
+      title: 'PitInAuction',
     });
   } catch (error) {
     console.error(error);
     next(error);
   }
 };
+
+exports.auctionType = async (req, res, next) => {
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  try {
+    res.render('ProRe', {
+      title: 'PitInAuction',
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
+
+

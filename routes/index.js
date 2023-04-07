@@ -6,7 +6,7 @@ const fs = require('fs');
 
 const { isLoggedIn, isNotLoggedIn } = require('../middlewares');
 const {
-  renderMain, renderJoin, renderGood, createGood, renderAuction, bid, renderList, renderProRe
+  renderMain, renderJoin, renderGood, createGood, renderAuction, bid, renderList, renderProRe, auctionType
 } = require('../controllers');
 
 const router = express.Router();
@@ -50,5 +50,8 @@ router.post('/good/:id/bid', isLoggedIn, bid);
 router.get('/list', isLoggedIn, renderList);
 
 router.get('/ProRe', isLoggedIn, renderProRe);
+
+router.get('/auctionType', isLoggedIn, auctionType);
+
 
 module.exports = router;

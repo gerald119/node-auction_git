@@ -1,49 +1,39 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-  <div class="timeline">
-    <h2>경매 진행 목록</h2>
-    <table id="good-list">
-      <tr>
-        <th>상품명</th>
-        <th>이미지</th>
-        <th>시작 가격</th>
-        <th>종료 시간</th>
-        <th>입장</th>
-      </tr>
-      {% for good in goods %}
-        <tr>
-          <td>{{good.name}}</td>
-          <td>
-            <img src="/img/{{good.img}}">
-          </td>
-          <td>{{good.price}}</td>
-          <td class="time" data-start="{{good.createdAt}}">00:00:00</td>
-          <td>
-            <a href="/good/{{good.id}}" class="enter btn">입장</a>
-          </td>
-        </tr>
-      {% endfor %}
-    </table>
-  </div>
-  <script src="https://unpkg.com/event-source-polyfill/src/eventsource.min.js"></script>
-  <script>
-    const es = new EventSource('/sse');
-    es.onmessage = function (e) {
-      document.querySelectorAll('.time').forEach((td) => {
-        const end = new Date(td.dataset.start); // 경매 시작 시간
-        const server = new Date(parseInt(e.data, 10));
-        end.setDate(end.getDate() + 1); // 경매 종료 시간
-        if (server >= end) { // 경매가 종료되었으면
-          td.textContent = '00:00:00';
-        } else {
-          const t = end - server; // 경매 종료까지 남은 시간
-          const seconds = ('0' + Math.floor((t / 1000) % 60)).slice(-2);
-          const minutes = ('0' + Math.floor((t / 1000 / 60) % 60)).slice(-2);
-          const hours = ('0' + Math.floor((t / (1000 * 60 * 60)) % 24)).slice(-2);
-          td.textContent = hours + ':' + minutes + ':' + seconds ;
-        }
-      });
-    };
-  </script>
+<div class="timeline">
+  <h2>Pit In 경매 상품 등록</h2>
+    <nav>
+      <div class="container">
+          <ul>
+              <li><a href="/auctionType">경매구분</a></li>
+              <li><a href="#">대분류</a></li>
+              <li><a href="#">소분류</a></li>
+              <li><a href="#">Company</a></li>
+              <li><a href="#">Model</a></li>
+              <li><a href="#">Type</a></li>
+              <li><a href="#">Year</a></li>
+              <li><a href="#">적산거리</a></li>
+          </ul>
+      </div>
+    </nav>
+    <br>
+    <nav>
+      <div class="container">
+          <ul>
+              <li><a href="#">City</a></li>
+              <li><a href="#">District</a></li>
+              <li><a href="#">경매시작가</a></li>
+          </ul>
+      </div>
+    </nav>
+    <p id="PaperCheck">
+      <input type="checkbox" name="vehicle1" value="Bike">등록증<br>
+      <input type="checkbox" name="vehicle2" value="Car">신분증<br>
+      <input type="checkbox" name="vehicle3" value="Boat">양도증명<br>
+    </p>
+</div>          
+<script>
+</script>
 {% endblock %}
+
