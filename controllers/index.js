@@ -81,19 +81,11 @@ exports.renderAuction = async (req, res, next) => {
         order: [['bid', 'ASC']],
       }),
     ]);
-      console.log(good.OwnerId); 
-      console.log(req.params.id)
-      console.log(req.user.id)  // 세션에 등록된 현재 사용자 
-     if (good.OwnerId == req.user.id){
-      console.log(" 자신의 상품은 입찰 할 수 없습니다.");
-      res.redirect('/');
-     } else {
        res.render('auction', {
          title: `${good.name} - NodeAuction`,
          good,
          auction,
         });
-      };
   } catch (error) {
     console.error(error);
     next(error);
@@ -103,15 +95,18 @@ exports.renderAuction = async (req, res, next) => {
 exports.bid = async (req, res, next) => {
   try {
     const { bid, msg } = req.body;
-    console.log(req.params.id, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    console.log(req.user.id, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-    //console.log(req.params.OwnerId , "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-    //console.log(good.OwnerId, "######################################"); 
     const good = await Good.findOne({
       where: { id: req.params.id },
       include: { model: Auction },
       order: [[{ model: Auction }, 'bid', 'DESC']],
     });
+    // 삭제 예정 
+    console.log(req.params.id, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    console.log(req.user.id, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+    console.log(good.OwnerId, "######################################"); 
+    if (req.user.id == good.OwnerId ){
+      return res.status(404).send('본인의 상품을 입찰할 수 없습니다.');
+    }
     if (!good) {
       return res.status(404).send('해당 상품은 존재하지 않습니다.');
     }
