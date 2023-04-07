@@ -155,12 +155,15 @@ exports.renderList = async (req, res, next) => {
 
 exports.renderProRe = async (req, res, next) => {
   try {
-    const goods = await Good.findAll({
-      where: { SoldId: req.user.id },
-      include: { model: Auction },
-      order: [[{ model: Auction }, 'bid', 'DESC']],
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1); // 어제 시간
+    const goods = await Good.findAll({ 
+      where: { SoldId: null, createdAt: { [Op.gte]: yesterday } },
     });
-    res.render('ProRe', { title: '낙찰 목록 - NodeAuction', goods });
+    res.render('ProRe', {
+      title: 'NodeAuction',
+      goods,
+    });
   } catch (error) {
     console.error(error);
     next(error);
