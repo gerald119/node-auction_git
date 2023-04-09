@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { Good, Auction, User, sequelize } = require('../models');
+const { Good, Auction, User, sequelize, AuctionTypes } = require('../models');
 const schedule = require('node-schedule');
 
 exports.renderMain = async (req, res, next) => {
@@ -24,6 +24,7 @@ exports.renderJoin = (req, res) => {
     title: '회원가입 - NodeAuction',
   });
 };
+
 
 exports.renderGood = (req, res) => {
   res.render('good', { title: '상품 등록 - NodeAuction' });
@@ -68,31 +69,24 @@ exports.createGood = async (req, res, next) => {
 exports.renderAuction = async (req, res, next) => {
   try {
     const [good, auction] = await Promise.all([
-      Good.findOne({
+      Good.findOne({     // 경매 상품 
         where: { id: req.params.id },
         include: {
           model: User,
           as: 'Owner',
         },
       }),
-      Auction.findAll({
+      Auction.findAll({   // 입찰한 내역 불러오기 
         where: { GoodId: req.params.id },
         include: { model: User },
         order: [['bid', 'ASC']],
       }),
     ]);
-      console.log(req.params.id)
-      console.log(req.user.id)
-     if (req.params.id == req.user.id){
-      console.log(" 자신의 상품은 입찰 할 수 없습니다.");
-      res.redirect('/');
-     } else {
        res.render('auction', {
          title: `${good.name} - NodeAuction`,
          good,
          auction,
         });
-      };
   } catch (error) {
     console.error(error);
     next(error);
@@ -107,6 +101,13 @@ exports.bid = async (req, res, next) => {
       include: { model: Auction },
       order: [[{ model: Auction }, 'bid', 'DESC']],
     });
+    // 삭제 예정 
+    // console.log(req.params.id, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    // console.log(req.user.id, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+    // console.log(good.OwnerId, "######################################"); 
+    if (req.user.id == good.OwnerId ){
+      return res.status(404).send('본인의 상품을 입찰할 수 없습니다.');
+    }
     if (!good) {
       return res.status(404).send('해당 상품은 존재하지 않습니다.');
     }
@@ -151,3 +152,29 @@ exports.renderList = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.renderProRe = (req, res, next) => {
+  try {
+    res.render('ProRe', {
+      title: 'PitInAuction',
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
+exports.auctionType = async (req, res, next) => {
+  console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  try {
+    res.render('ProRe', {
+      title: 'PitInAuction',
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
+
+

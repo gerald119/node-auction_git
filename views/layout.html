@@ -18,6 +18,8 @@
             <a href="/auth/logout" id="logout" class="btn">로그아웃</a>
             <a href="/good" id="register" class="btn">상품 등록</a>
             <a href="/list" id="list" class="btn">낙찰 내역</a>
+            <a href="/" id="list" class="btn">Home</a>
+            <a href="ProRe" id="list" class="btn">PitIn 상품등록</a>
           {% else %}
             <form action="/auth/login" id="login-form" method="post">
               <div class="input-group">
@@ -34,7 +36,7 @@
           {% endif %}
         </div>
         <footer>
-          Made by&nbsp;<a href="https://www.zerocho.com" target="_blank">ZeroCho</a>
+          Made by&nbsp;<a href="https://www.pitin.io" target="_blank">Gerald</a>
         </footer>
         {% block good %}
         {% endblock %}

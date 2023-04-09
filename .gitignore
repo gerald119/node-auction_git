@@ -1,5 +1,10 @@
 .env
 node_modules/
+<<<<<<< HEAD
 config/
 
 
+=======
+config/ 
+uploads/
+>>>>>>> test
