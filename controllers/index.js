@@ -1,6 +1,7 @@
 const { Op } = require('sequelize');
 const { Good, Auction, User, sequelize, AuctionTypes } = require('../models');
 const schedule = require('node-schedule');
+const { request } = require('express');
 
 exports.renderMain = async (req, res, next) => {
   try {
@@ -170,6 +171,19 @@ exports.auctionType = async (req, res, next) => {
     res.render('ProRe', {
       title: 'PitInAuction',
     });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
+
+
+exports.auctionTypeCheck = async (req, res, next) => {
+  var data = req.body.firstName
+  console.log(  data , ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  try {
+    res.send('ok')
   } catch (error) {
     console.error(error);
     next(error);

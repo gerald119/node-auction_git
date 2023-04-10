@@ -2,42 +2,82 @@
 
 {% block content %}
 <div class="timeline">
-  <h2>Pit In 경매 상품 등록</h2>
-    <nav>
-      <div class="container">
-          <ul>
-              <li><a href="/auctionType">경매구분</a></li>
-              <li><a href="#">대분류</a></li>
-              <li><a href="#">소분류</a></li>
-              <li><a href="#">Company</a></li>
-              <li><a href="#">Model</a></li>
-              <li><a href="#">Type</a></li>
-              <li><a href="#">Year</a></li>
-              <li><a href="#">적산거리</a></li>
-          </ul>
-      </div>
-    </nav>
+  <form>
+    <div>
+      거래방식 : 
+      <select id="select_value" onchange="changeValue()">
+        <option value="1">PitIn 경매</option>
+        <option value="2">시간제 경매</option>
+      </select>
+    </div>
+    <br> 
+
+    <div>
+      거래 종류 : 
+      <select>
+        <option value="1">One</option>
+        <option value="2">two</option>
+        <option value="3">three</option>
+        <option value="4">four</option>
+        <option value="5">five</option>
+      </select>
+    </div>
     <br>
-    <nav>
-      <div class="container">
-          <ul>
-              <li><a href="#">City</a></li>
-              <li><a href="#">District</a></li>
-              <li><a href="#">경매시작가</a></li>
-          </ul>
-      </div>
-    </nav>
-    <p id="PaperCheck">
-      <input type="checkbox" name="vehicle1" value="Bike">등록증<br>
-      <input type="checkbox" name="vehicle2" value="Car">신분증<br>
-      <input type="checkbox" name="vehicle3" value="Boat">양도증명<br>
-    </p>
+    <div>
+      회사 :      
+      <select>
+        <option value="1">One</option>
+        <option value="2">two</option>
+        <option value="3">three</option>
+        <option value="4">four</option>
+        <option value="5">five</option>
+      </select>
+    </div>
+  </form>
 </div>          
+
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-</script>
+function changeValue() {
+  var value_str = document.getElementById('select_value'); 
+  var auctionType = value_str.options[value_str.selectedIndex].value;
+  console.log(auctionType, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    // alert("value:" + value_str.options[value_str.selectedIndex].value);  
+     axios.post('/auctionTypeCheck',{
+      firstName: auctionType,
+      lastName: 'Doe'
+     })
+      .then((result) => {
+        console.log(result);
+        console.log(result.data);
+      })
+      .catch((error) => {
+        console.error(error); 
+      });
+  };
+
+
+
+
+  
+
+
+
+  //  $.ajax({
+    //   type: "POST",
+  //   url: "/",
+  //   data: params,
+  //   success: function(res) {
+    //     alert("ajaxTest");
+    //   },
+    //   error:function(XMLHttpRequest, textStatus, errorThrown) {
+      //     alert("ajaxTestError");
+      //   }
+      //  });
+      
+    </script>
 {% endblock %}
 
 
-
-
-git test
