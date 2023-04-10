@@ -180,7 +180,7 @@ exports.auctionType = async (req, res, next) => {
 
 
 exports.auctionTypeCheck = async (req, res, next) => {
-  var data = req.body.firstName
+  var data = req.body.auctionType
   console.log(  data , ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
   try {
     res.send('ok')
