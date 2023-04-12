@@ -1,0 +1,158 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="timeline">
+  <form>
+    ProBike
+    <div>
+      거래 방식 : 
+      <select id="select_value" onchange="changeValue()">
+        <option value="1">PitIn 경매</option>
+        <option value="2">시간제 경매</option>
+      </select>
+    </div>
+    <br>
+    <div>
+      대분류:      
+      <select>
+        <option value="1">바이크</option>
+        <option value="2">부품용바이크</option>
+      </select>
+    </div>
+    <br>
+    <div>
+      바이크 메이커 :      
+      <select>
+        <option value="1">혼다</option>
+        <option value="2">야마하</option>
+        <option value="3">스즈끼</option>
+        <option value="4">가와사끼</option>
+        <option value="5">할리</option>
+      </select>
+    </div>
+    <br>
+    <div>
+      기종 :      
+      <select>
+        <option value="1">CBR1000</option>
+        <option value="2">CBR600</option>
+        <option value="3">CB500</option>
+        <option value="4">CBR250</option>
+        <option value="5">CBR125</option>
+      </select>
+    </div>
+    <br>
+    <div>
+      배기량 (선택X) :      
+      <select>
+        <option value="1">1500CC 이상</option>
+        <option value="2">1000~1300CC</option>
+        <option value="3">600~1000CC</option>
+        <option value="5">125~600CC</option>
+        <option value="4">50~125CC</option>
+      </select>
+    </div>
+    <br>
+    <div>
+      색상 :      
+      <select>
+        <option value="1">검은색</option>
+        <option value="2">빨간색</option>
+        <option value="3">노란색</option>
+        <option value="4">하얀색</option>
+        <option value="5">파란색</option>
+      </select>
+    </div>
+    <br>
+    <div>
+      연식 :      
+      <select>
+        <option value="1">2023</option>
+        <option value="2">2022</option>
+        <option value="3">2021</option>
+        <option value="4">2020</option>
+        <option value="5">2019</option>
+      </select>
+    </div>
+    <br>
+    <div>
+      적산거리 : <input value="1">Km</input>
+    </div>
+    <br>
+    <div>
+      지역(도시) :      
+      <select>
+        <option value="1">서울</option>
+        <option value="2">대전</option>
+        <option value="3">대구</option>
+        <option value="4">부산</option>
+        <option value="5">광주</option>
+      </select>
+    </div>
+    <br>
+    <div>
+      지역(구) :      
+      <select>
+        <option value="1">용산구</option>
+        <option value="2">중구</option>
+        <option value="3">동대문구</option>
+        <option value="4">광진구</option>
+        <option value="5">강남구</option>
+      </select>
+    </div>
+    <br>
+    서류 : 
+    <br>
+    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"><label for="vehicle1">등록증</label>
+    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car"><label for="vehicle2">신분증</label>
+    <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"><label for="vehicle3">폐지증명</label>
+    <input type="checkbox" id="vehicle4" name="vehicle4" value="Card"><label for="vehicle3">양도증명</label>
+    <input type="checkbox" id="vehicle5" name="vehicle5" value="Card"><label for="vehicle3">서류 없음</label>
+    <br>
+    <br>
+    희망 거래방법: 
+    <br>
+    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"><label for="vehicle1">직거래</label>
+    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car"><label for="vehicle2">안심거래</label>
+    <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"><label for="vehicle3">카드거래</label>
+    <br>
+    <br>
+    <div>
+      제목 : <input></input>
+    </div>
+    <br>
+    <br>
+    <div>
+      판매글 : <input></input>
+    </div>
+    <br>
+    <div>
+      경매 시작가 : <input></input>
+    </div>
+    <br>
+  </form>
+</div>          
+
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+  function changeValue() {
+    var value_str = document.getElementById('select_value'); 
+    var auctionType = value_str.options[value_str.selectedIndex].value;
+    axios.post('/auctionTypeCheck',{
+      auctionType: auctionType,
+      lastName: 'Doe'
+    })
+    .then((result) => {
+      console.log(result);
+        console.log(result.data);
+      })
+      .catch((error) => {
+        console.error(error); 
+      });
+  };
+    </script>
+{% endblock %}
+
+

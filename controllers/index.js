@@ -154,9 +154,29 @@ exports.renderList = async (req, res, next) => {
   }
 };
 
-exports.renderProRe = (req, res, next) => {
+exports.renderProBike = (req, res, next) => {
   try {
-    res.render('ProRe', {
+    res.render('ProBike', {
+      title: 'PitInAuction',
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+exports.renderProPart = (req, res, next) => {
+  try {
+    res.render('ProPart', {
+      title: 'PitInAuction',
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+exports.renderProWare = (req, res, next) => {
+  try {
+    res.render('ProWare', {
       title: 'PitInAuction',
     });
   } catch (error) {
@@ -165,6 +185,13 @@ exports.renderProRe = (req, res, next) => {
   }
 };
 
+
+
+
+
+
+
+// 삭제 예정 
 exports.auctionType = async (req, res, next) => {
   console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
   try {
@@ -177,8 +204,7 @@ exports.auctionType = async (req, res, next) => {
   }
 };
 
-
-
+// axios 테스트용 삭제 예정 
 exports.auctionTypeCheck = async (req, res, next) => {
   var data = req.body.auctionType
   console.log(  data , ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");

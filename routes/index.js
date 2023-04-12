@@ -7,7 +7,7 @@ const fs = require('fs');
 const { isLoggedIn, isNotLoggedIn } = require('../middlewares');
 const {
   renderMain, renderJoin, renderGood, createGood, renderAuction, bid, renderList, 
-  renderProRe, auctionType, auctionTypeCheck
+  renderProBike, auctionType, auctionTypeCheck, renderProPart, renderProWare
 } = require('../controllers');
 
 const router = express.Router();
@@ -50,10 +50,13 @@ router.post('/good/:id/bid', isLoggedIn, bid);
 
 router.get('/list', isLoggedIn, renderList);
 
-router.get('/ProRe', isLoggedIn, renderProRe);
+router.get('/ProBike', isLoggedIn, renderProBike);
+router.get('/ProPart', isLoggedIn, renderProPart)
+router.get('/ProWare', isLoggedIn, renderProWare)
 
+
+// 삭제 예정
 router.get('/auctionType', isLoggedIn, auctionType);
-
 router.post('/auctionTypeCheck', isLoggedIn, auctionTypeCheck);
 
 

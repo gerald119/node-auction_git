@@ -3,34 +3,14 @@
 {% block content %}
 <div class="timeline">
   <form>
+    ProPart
     <br>
-    <div>
-      제목 : <input></input>
-    </div>
     <br>
     <div>
       거래 방식 : 
       <select id="select_value" onchange="changeValue()">
         <option value="1">PitIn 경매</option>
         <option value="2">시간제 경매</option>
-      </select>
-    </div>
-    <br>
-    희망 거래방법: 
-    <br>
-    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"><label for="vehicle1">직거래</label>
-    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car"><label for="vehicle2">안심거래</label>
-    <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"><label for="vehicle3">카드거래</label>
-    <input type="checkbox" id="vehicle4" name="vehicle4" value="Card"><label for="vehicle3">신용거래</label>
-    <br>
-    <br>
-    <div>
-      대분류:      
-      <select>
-        <option value="1">바이크</option>
-        <option value="2">부품용바이크</option>
-        <option value="3">부품</option>
-        <option value="4">용품</option>
       </select>
     </div>
     <br>
@@ -46,28 +26,6 @@
     </div>
     <br>
     <div>
-      부품 메이커 :      
-      <select>
-        <option value="1">순정(null)</option>
-        <option value="2">브렘보</option>
-        <option value="3">올린즈</option>
-        <option value="4">키타고</option>
-        <option value="5">WP</option>
-      </select>
-    </div>
-    <br>
-    <div>
-      용품 메이커 :      
-      <select>
-        <option value="1">아라이</option>
-        <option value="2">다이네즈</option>
-        <option value="3">쇼웨이</option>
-        <option value="4">알파인스타</option>
-        <option value="5">sidi</option>
-      </select>
-    </div>
-    <br>
-    <div>
       기종 :      
       <select>
         <option value="1">CBR1000</option>
@@ -79,13 +37,24 @@
     </div>
     <br>
     <div>
-      색상 :      
+      부품 메이커 :      
       <select>
-        <option value="1">검은색</option>
-        <option value="2">빨간색</option>
-        <option value="3">노란색</option>
-        <option value="4">하얀색</option>
-        <option value="5">파란색</option>
+        <option value="1">순정(null)</option>
+        <option value="2">브렘보</option>
+        <option value="3">올린즈</option>
+        <option value="4">키타고</option>
+        <option value="5">WP</option>
+      </select>
+    </div>
+    <br>
+    <div>
+      부품 종류 :      
+      <select>
+        <option value="1">헤드라이트</option>
+        <option value="2">카울</option>
+        <option value="3">조향장치</option>
+        <option value="4">타이어</option>
+        <option value="5">연료탱크</option>
       </select>
     </div>
     <br>
@@ -101,6 +70,17 @@
     </div>
     <br>
     <div>
+      색상 :      
+      <select>
+        <option value="1">검은색</option>
+        <option value="2">빨간색</option>
+        <option value="3">노란색</option>
+        <option value="4">하얀색</option>
+        <option value="5">파란색</option>
+      </select>
+    </div>
+    <br>
+    <div>
       연식 :      
       <select>
         <option value="1">2023</option>
@@ -112,7 +92,10 @@
     </div>
     <br>
     <div>
-      적산거리 : <input value="1">Km</input>
+      적산거리 : <input value="필수는 아님">Km</input>
+    </div>
+    <div>
+      파츠번호 : <input value="필수는 아님"></input>
     </div>
     <br>
     <div>
@@ -137,14 +120,23 @@
       </select>
     </div>
     <br>
-    서류 : 
+    희망 거래방법: 
     <br>
-    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"><label for="vehicle1">등록증</label>
-    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car"><label for="vehicle2">신분증</label>
-    <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"><label for="vehicle3">폐지증명</label>
-    <input type="checkbox" id="vehicle4" name="vehicle4" value="Card"><label for="vehicle3">양도증명</label>
-    <input type="checkbox" id="vehicle5" name="vehicle5" value="Card"><label for="vehicle3">서류 없음</label>
+    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"><label for="vehicle1">직거래</label>
+    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car"><label for="vehicle2">안심거래</label>
+    <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"><label for="vehicle3">카드거래</label>
     <br>
+    <br>
+    <div>
+      제목   : <input></input>
+    </div>
+    <br>
+    <div>
+      판매글 : <input></input>
+    </div>
+    <div>
+      경매 시작가 : <input></input>
+    </div>
   </form>
 </div>          
 
@@ -152,15 +144,15 @@
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-function changeValue() {
-  var value_str = document.getElementById('select_value'); 
-  var auctionType = value_str.options[value_str.selectedIndex].value;
-     axios.post('/auctionTypeCheck',{
+  function changeValue() {
+    var value_str = document.getElementById('select_value'); 
+    var auctionType = value_str.options[value_str.selectedIndex].value;
+    axios.post('/auctionTypeCheck',{
       auctionType: auctionType,
       lastName: 'Doe'
-     })
-      .then((result) => {
-        console.log(result);
+    })
+    .then((result) => {
+      console.log(result);
         console.log(result.data);
       })
       .catch((error) => {
