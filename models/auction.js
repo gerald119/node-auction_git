@@ -24,7 +24,7 @@ class Auction extends Sequelize.Model {
   }
 
   static associate(db) {
-    db.Auction.belongsTo(db.User);
+    db.Auction.belongsTo(db.User);   // 무조건 User 에 있는 정보가 들어와야 한다. 
     db.Auction.belongsTo(db.Good);
   }
 };

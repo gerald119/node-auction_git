@@ -160,7 +160,7 @@ exports.renderProBike = (req, res, next) => {
       title: 'PitInAuction',
     });
   } catch (error) {
-    console.error(error);
+    console.error(error)
     next(error);
   }
 };
@@ -176,7 +176,7 @@ exports.renderProPart = (req, res, next) => {
 };
 exports.renderProWare = (req, res, next) => {
   try {
-    res.render('ProWare', {
+    res.render('ProWear', {
       title: 'PitInAuction',
     });
   } catch (error) {

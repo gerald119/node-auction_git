@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
-class AuctionTypes extends Sequelize.Model {
+class BikeMaker extends Sequelize.Model {
   static initiate(sequelize) {
-    AuctionTypes.init({
+    BikeMaker.init({
       name: {
         type: Sequelize.STRING(40),
         allowNull: false,
@@ -11,18 +11,16 @@ class AuctionTypes extends Sequelize.Model {
       sequelize,
       timestamps: true,
       paranoid: true,
-      modelName: 'AuctionType',
-      tableName: 'auctionTypes',
+      modelName: 'BikeMaker',
+      tableName: 'bikemakers',
       charset: 'utf8',
       collate: 'utf8_general_ci',
     });
   }
 
   static associate(db) {
-    // db.Good.belongsTo(db.User, { as: 'Owner' });
-    // db.Good.belongsTo(db.User, { as: 'Sold' });
-    // db.Good.hasMany(db.Auction);
+    db.BikeMaker.hasMany(db.BikeModel);
   }
 };
 
-module.exports = AuctionTypes;
+module.exports = BikeMaker;
