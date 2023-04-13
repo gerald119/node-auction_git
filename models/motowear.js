@@ -1,26 +1,29 @@
 const Sequelize = require('sequelize');
 
-class BikeMaker extends Sequelize.Model {
+class MotoWear extends Sequelize.Model {
   static initiate(sequelize) {
-    BikeMaker.init({
-      name: {
+    MotoWear.init({
+      maker: {
         type: Sequelize.STRING(40),
-        allowNull: false,
+        allowNull: true,
+      },
+      type: {
+        type: Sequelize.STRING(40),
+        allowNull: true,
       },
     }, {
       sequelize,
       timestamps: true,
       paranoid: true,
-      modelName: 'BikeMaker',
-      tableName: 'bikemakers',
+      modelName: 'MotoWear',
+      tableName: 'motowears',
       charset: 'utf8',
       collate: 'utf8_general_ci',
     });
   }
 
   static associate(db) {
-    db.BikeMaker.hasMany(db.BikeModel);
   }
 };
 
-module.exports = BikeMaker;
+module.exports = MotoWear;

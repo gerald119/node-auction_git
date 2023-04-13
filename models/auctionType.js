@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 class AuctionType extends Sequelize.Model {
   static initiate(sequelize) {
     AuctionType.init({
-      name: {
+      type: {
         type: Sequelize.STRING(40),
         allowNull: false,
       },
